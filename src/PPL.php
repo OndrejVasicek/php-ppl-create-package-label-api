@@ -155,12 +155,13 @@ final class PPL
      * Sends a request and returns only the JSON body converted to a PHP array
      *
      * @see self::request()
+     * @return array|object|null
      */
-    public function requestJson(string $path, string $method = 'get', array $data = []): ?array
+    public function requestJson(string $path, string $method = 'get', array $data = [])
     {
         return json_decode(
             $this->request($path, $method, $data)->getBody()->getContents(),
-            true
+            false
         );
     }
 
@@ -197,7 +198,7 @@ final class PPL
      * Calls the API to get basic information, such as the API version or the current time.
      * Useful to test your connection.
      */
-    public function versionInformation(): array
+    public function versionInformation(): object
     {
         return $this->requestJson('info');
     }
